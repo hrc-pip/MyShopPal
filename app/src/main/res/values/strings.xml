@@ -26,9 +26,14 @@
     <string name="err_msg_enter_first_name">Please enter first name.</string>
     <string name="err_msg_enter_last_name">Please enter last name.</string>
     <string name="err_msg_enter_email">Please enter email.</string>
+    <string name="err_msg_enter_valid_email">Please enter a valid email.</string>
     <string name="err_msg_enter_password">Please enter password.</string>
     <string name="err_msg_enter_confirm_password">Please enter confirm password.</string>
-    <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match</string>
+    <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match.</string>
+    <string name="err_msg_password_length">Your password must have at least 8 characters.</string>
     <string name="err_msg_agree_terms_and_condition">Please agree terms and conditions.</string>
+
+
+    <string name="please_wait">Please Wait&#8230;</string>
 
 </resources>

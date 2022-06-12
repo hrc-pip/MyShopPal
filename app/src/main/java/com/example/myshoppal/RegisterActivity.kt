@@ -6,9 +6,14 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.widget.AppCompatCheckBox
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +41,7 @@ class RegisterActivity : BaseActivity() {
         }
 
         register.setOnClickListener(){
-            validateRegisterDetails()
+            registerUser()
         }
 
     }
@@ -62,11 +67,11 @@ class RegisterActivity : BaseActivity() {
 
 
     private fun validateRegisterDetails(): Boolean {
-        val firstName = findViewById<TextView>(R.id.et_first_name)
-        val lastName = findViewById<TextView>(R.id.et_last_name)
-        val email = findViewById<TextView>(R.id.et_email)
-        val password = findViewById<TextView>(R.id.et_password)
-        val confirmPassword = findViewById<TextView>(R.id.et_confirm_password)
+        val firstName = findViewById<EditText>(R.id.et_first_name)
+        val lastName = findViewById<EditText>(R.id.et_last_name)
+        val email = findViewById<EditText>(R.id.et_email)
+        val password = findViewById<EditText>(R.id.et_password)
+        val confirmPassword = findViewById<EditText>(R.id.et_confirm_password)
         val terms = findViewById<AppCompatCheckBox>(R.id.cb_terms_and_condition)
 
 
@@ -86,8 +91,18 @@ class RegisterActivity : BaseActivity() {
                 false
             }
 
+            !android.util.Patterns.EMAIL_ADDRESS.matcher(email.text.toString().trim { it <= ' '}).matches() -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_valid_email), true)
+                false
+            }
+
             TextUtils.isEmpty(password.text.toString().trim { it <= ' '}) || password.length() < 8 -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
+                false
+            }
+
+            password.length() < 8 -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_password_length), true)
                 false
             }
 
@@ -107,9 +122,50 @@ class RegisterActivity : BaseActivity() {
             }
 
             else -> {
-                showErrorSnackBar(  "Thanks for registering!", false)
                 true
             }
+        }
+    }
+
+
+
+    private fun registerUser() {
+
+        val email = findViewById<EditText>(R.id.et_email)
+        val password = findViewById<EditText>(R.id.et_password)
+
+        if(validateRegisterDetails()) {
+
+            // show the progressBar
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            val email: String = email.text.toString().trim { it <= ' '}
+            val password: String = password.text.toString().trim { it <= ' '}
+
+            //Create an instance and create a register a user with email and password.
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(
+                    OnCompleteListener<AuthResult> { task ->
+
+                        // remove the progressBar
+                        hideProgressDialog()
+
+                        // If the registration is successfully done
+                        if (task.isSuccessful) {
+
+                            //  Firebase registered user
+                            val firebaseUser: FirebaseUser = task.result!!.user!!
+
+                            showErrorSnackBar("You are registered successfully. Your user id is ${firebaseUser.uid}",
+                                false)
+
+
+                        } else {
+
+                            // If the registering is not successful then show error message.
+                            showErrorSnackBar(task.exception!!.message.toString(), true)
+                        }
+                    })
         }
     }
 

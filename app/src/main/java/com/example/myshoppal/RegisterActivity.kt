@@ -3,6 +3,7 @@ package com.example.myshoppal
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.Button
@@ -33,11 +34,7 @@ class RegisterActivity : BaseActivity() {
 
         tvLogin.setOnClickListener {
             // Do some work here
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-
-            startActivity(intent)
-
-            finish()
+           onBackPressed()
         }
 
         register.setOnClickListener(){
@@ -59,9 +56,7 @@ class RegisterActivity : BaseActivity() {
         }
 
         toolbar.setNavigationOnClickListener {
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            onBackPressed()
         }
     }
 
@@ -156,8 +151,18 @@ class RegisterActivity : BaseActivity() {
                             //  Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                            showErrorSnackBar("You are registered successfully. Your user id is ${firebaseUser.uid}",
+                            showErrorSnackBar("You are registered successfully.",
                                 false)
+
+                            FirebaseAuth.getInstance().signOut();
+
+
+                            @Suppress("DEPRECATION")
+                            Handler().postDelayed({
+                                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }, 500)
 
 
                         } else {

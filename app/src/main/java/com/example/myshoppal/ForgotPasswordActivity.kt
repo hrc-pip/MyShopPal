@@ -1,0 +1,65 @@
+package com.example.myshoppal
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+
+class ForgotPasswordActivity : BaseActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_forgot_password)
+
+        setupActionBar()
+    }
+
+
+    private fun setupActionBar() {
+
+        val submit = findViewById<Button>(R.id.btn_submit)
+        val toolbar  = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_forgot_password_activity)
+
+        setSupportActionBar(toolbar)
+
+        val actionBar = supportActionBar
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
+        }
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        submit.setOnClickListener{
+            val email = findViewById<EditText>(R.id.et_email_forgot_password).text.toString().trim{ it <= ' '}
+            if(email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_valid_email), true)
+            }else{
+                showProgressDialog(resources.getString(R.string.please_wait))
+                FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                    .addOnCompleteListener{ task ->
+                        hideProgressDialog()
+
+                        if(task.isSuccessful){
+
+                            //Show the toast message and finish the forgot password
+                            Toast.makeText(
+                                this@ForgotPasswordActivity,
+                                resources.getString(R.string.email_sent_success),
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            finish()
+                        } else {
+                            showErrorSnackBar(task.exception!!.message.toString(), true)
+                        }
+
+                    }
+            }
+
+        }
+    }
+}

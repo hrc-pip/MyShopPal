@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
+        <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/user_image_background.xml" value="0.2703125" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_base.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_forgot_password.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_login.xml" value="0.19111111111111112" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_main.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_splash.xml" value="0.264" />
+        <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/activity_user_profile.xml" value="0.264" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/dialog_progress.xml" value="0.24705882352941178" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14635416666666667" />
       </map>

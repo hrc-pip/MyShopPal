@@ -63,9 +63,9 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:padding="@dimen/et_padding"
-            android:textColor="@color/black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="@dimen/et_textSize"
             tools:text="abc@gmail.com" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:padding="@dimen/et_padding"
-            android:textColor="@color/black"
+            android:textColor="?android:textColorPrimary"
             android:textSize="@dimen/et_textSize"
             tools:text="123456"/>
         <!-- textColor was originally primary -->

@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toolbar
+import android.widget.*
 import androidx.appcompat.widget.AppCompatCheckBox
+import com.example.myshoppal.firestore.FirestoreClass
+import com.example.myshoppal.models.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -126,24 +125,25 @@ class RegisterActivity : BaseActivity() {
 
     private fun registerUser() {
 
-        val email = findViewById<EditText>(R.id.et_email)
-        val password = findViewById<EditText>(R.id.et_password)
+        val firstName = findViewById<EditText>(R.id.et_first_name)
+        val lastName = findViewById<EditText>(R.id.et_last_name)
+        val emailE = findViewById<EditText>(R.id.et_email)
+        val passwordE = findViewById<EditText>(R.id.et_password)
+        val confirmPassword = findViewById<EditText>(R.id.et_confirm_password)
+        val terms = findViewById<AppCompatCheckBox>(R.id.cb_terms_and_condition)
 
         if(validateRegisterDetails()) {
 
             // show the progressBar
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email: String = email.text.toString().trim { it <= ' '}
-            val password: String = password.text.toString().trim { it <= ' '}
+            val email: String = emailE.text.toString().trim { it <= ' '}
+            val password: String = passwordE.text.toString().trim { it <= ' '}
 
             //Create an instance and create a register a user with email and password.
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
-
-                        // remove the progressBar
-                        hideProgressDialog()
 
                         // If the registration is successfully done
                         if (task.isSuccessful) {
@@ -151,27 +151,41 @@ class RegisterActivity : BaseActivity() {
                             //  Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
-                            showErrorSnackBar("You are registered successfully.",
-                                false)
+                            val user = User(
+                                firebaseUser.uid,
+                                firstName.text.toString().trim { it <= ' '},
+                                lastName.text.toString().trim { it <= ' '},
+                                email
+                                )
 
-                            FirebaseAuth.getInstance().signOut();
+                            FirestoreClass().registerUser(this@RegisterActivity, user)
 
-
-                            @Suppress("DEPRECATION")
-                            Handler().postDelayed({
-                                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }, 500)
+                            /*FirebaseAuth.getInstance().signOut();
+                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()*/
 
 
                         } else {
+
+                            hideProgressDialog()
 
                             // If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }
                     })
         }
+    }
+
+    fun userRegistrationSuccess() {
+
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@RegisterActivity,
+            resources.getString(R.string.register_success),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }

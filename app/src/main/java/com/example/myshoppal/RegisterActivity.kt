@@ -14,15 +14,12 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        val tvLogin = findViewById<TextView>(R.id.tv_login)
-        val register = findViewById<Button>(R.id.btn_register)
-
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -31,12 +28,12 @@ class RegisterActivity : BaseActivity() {
 
         setupActionBar()
 
-        tvLogin.setOnClickListener {
+        tv_login.setOnClickListener {
             // Do some work here
            onBackPressed()
         }
 
-        register.setOnClickListener(){
+        btn_register.setOnClickListener(){
             registerUser()
         }
 
@@ -125,20 +122,13 @@ class RegisterActivity : BaseActivity() {
 
     private fun registerUser() {
 
-        val firstName = findViewById<EditText>(R.id.et_first_name)
-        val lastName = findViewById<EditText>(R.id.et_last_name)
-        val emailE = findViewById<EditText>(R.id.et_email)
-        val passwordE = findViewById<EditText>(R.id.et_password)
-        val confirmPassword = findViewById<EditText>(R.id.et_confirm_password)
-        val terms = findViewById<AppCompatCheckBox>(R.id.cb_terms_and_condition)
-
         if(validateRegisterDetails()) {
 
             // show the progressBar
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email: String = emailE.text.toString().trim { it <= ' '}
-            val password: String = passwordE.text.toString().trim { it <= ' '}
+            val email: String = et_email.text.toString().trim { it <= ' '}
+            val password: String = et_password.text.toString().trim { it <= ' '}
 
             //Create an instance and create a register a user with email and password.
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
@@ -153,8 +143,8 @@ class RegisterActivity : BaseActivity() {
 
                             val user = User(
                                 firebaseUser.uid,
-                                firstName.text.toString().trim { it <= ' '},
-                                lastName.text.toString().trim { it <= ' '},
+                                et_first_name.text.toString().trim { it <= ' '},
+                                et_last_name.text.toString().trim { it <= ' '},
                                 email
                                 )
 

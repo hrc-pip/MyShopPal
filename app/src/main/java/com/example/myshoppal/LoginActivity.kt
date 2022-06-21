@@ -16,10 +16,10 @@ import com.google.firebase.auth.SignInMethodQueryResult
 import androidx.annotation.NonNull
 import com.example.myshoppal.firestore.FirestoreClass
 import com.example.myshoppal.models.User
+import com.example.myshoppal.utils.Constants
 
 import com.google.android.gms.tasks.OnCompleteListener
-
-
+import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : BaseActivity() {
@@ -33,20 +33,17 @@ class LoginActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
 
-        val register = findViewById<TextView>(R.id.tv_register)
-        val login = findViewById<Button>(R.id.btn_login)
-        val forgot = findViewById<TextView>(R.id.tv_forgot_password)
 
-        register.setOnClickListener(){
+       tv_register.setOnClickListener(){
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        login.setOnClickListener(){
+        btn_login.setOnClickListener(){
             logInRegisteredUser()
         }
 
-        forgot.setOnClickListener(){
+        tv_forgot_password.setOnClickListener(){
             val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
@@ -58,15 +55,20 @@ class LoginActivity : BaseActivity() {
 
         // hide the progress dialog
         hideProgressDialog()
+        
 
-        //Print the user details in the log as of now
-        Log.i("First Name: ", user.firstName)
-        Log.i("Last Name: ", user.lastName)
-        Log.i("Email: ", user.email)
-
-        // Redirect the user to Main Screen after log in.
-        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        //TODO - Mudar a opção do userProfile para um hamburger menu, pois desse jeito todo user novo vai direto para o Profile
+        // Start
+        if (user.profileCompleted == 0){
+            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+            startActivity(intent)
+        } else {
+            // Redirect the user to Main Screen after log in.
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
         finish()
+        // End
     }
 
 
@@ -104,16 +106,14 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun logInRegisteredUser(){
-        val emailT = findViewById<EditText>(R.id.et_email)
-        val passwordT = findViewById<EditText>(R.id.et_password)
 
         if(validateLoginDetails()) {
 
             // show progress dialog
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email = emailT.text.toString().trim { it <= ' ' }
-            val password = passwordT.text.toString().trim { it <= ' ' }
+            val email = et_email.text.toString().trim { it <= ' ' }
+            val password = et_password.text.toString().trim { it <= ' ' }
 
             //Log-In using FirebaseAuth
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)

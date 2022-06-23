@@ -1,13 +1,11 @@
-package com.example.myshoppal
+package com.example.myshoppal.ui.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.widget.AppCompatCheckBox
+import com.example.myshoppal.R
 import com.example.myshoppal.firestore.FirestoreClass
 import com.example.myshoppal.models.User
 import com.google.android.gms.tasks.OnCompleteListener
@@ -43,6 +41,8 @@ class RegisterActivity : BaseActivity() {
 
         val toolbar  = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_register_activity)
 
+        toolbar.title = ""
+
         setSupportActionBar(toolbar)
 
         val actionBar = supportActionBar
@@ -54,6 +54,7 @@ class RegisterActivity : BaseActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+
     }
 
 

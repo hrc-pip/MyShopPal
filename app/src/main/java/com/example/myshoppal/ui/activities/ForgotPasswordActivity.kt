@@ -1,12 +1,12 @@
-package com.example.myshoppal
+package com.example.myshoppal.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.myshoppal.R
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_forgot_password.*
 
 class ForgotPasswordActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,27 +19,8 @@ class ForgotPasswordActivity : BaseActivity() {
         )
 
         setupActionBar()
-    }
 
-
-    private fun setupActionBar() {
-
-        val submit = findViewById<Button>(R.id.btn_submit)
-        val toolbar  = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_forgot_password_activity)
-
-        setSupportActionBar(toolbar)
-
-        val actionBar = supportActionBar
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
-        }
-
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-
-        submit.setOnClickListener{
+        btn_submit.setOnClickListener{
             val email = findViewById<EditText>(R.id.et_email_forgot_password).text.toString().trim{ it <= ' '}
             if(email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_valid_email), true)
@@ -67,5 +48,26 @@ class ForgotPasswordActivity : BaseActivity() {
             }
 
         }
+    }
+
+
+    private fun setupActionBar() {
+
+        val toolbar  = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_forgot_password_activity)
+
+        toolbar.title = ""
+
+        setSupportActionBar(toolbar)
+
+        val actionBar = supportActionBar
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
+        }
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
     }
 }

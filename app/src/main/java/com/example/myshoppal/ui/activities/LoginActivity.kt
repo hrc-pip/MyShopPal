@@ -1,24 +1,20 @@
-package com.example.myshoppal
+package com.example.myshoppal.ui.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.SignInMethodQueryResult
 
-import androidx.annotation.NonNull
+import com.example.myshoppal.R
 import com.example.myshoppal.firestore.FirestoreClass
 import com.example.myshoppal.models.User
 import com.example.myshoppal.utils.Constants
 
-import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -27,6 +23,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        initFirebase()
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -55,18 +52,12 @@ class LoginActivity : BaseActivity() {
 
         // hide the progress dialog
         hideProgressDialog()
-        
 
-        //TODO - Mudar a opção do userProfile para um hamburger menu, pois desse jeito todo user novo vai direto para o Profile
-        // Start
-        if (user.profileCompleted == 0){
-            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
-            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
-            startActivity(intent)
-        } else {
-            // Redirect the user to Main Screen after log in.
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-        }
+        // Redirect the user to Main Screen after log in.
+        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
         finish()
         // End
     }
@@ -132,5 +123,19 @@ class LoginActivity : BaseActivity() {
                     }
                 }
         }
+    }
+
+    private fun initFirebase(){
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this@LoginActivity)
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(
+            SafetyNetAppCheckProviderFactory.getInstance()
+        )
+
+    }
+
+    override fun onBackPressed() {
+        doubleBackToExit()
     }
 }

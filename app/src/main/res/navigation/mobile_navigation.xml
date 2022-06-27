@@ -22,8 +22,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_favorites"
+        android:id="@+id/navigation_products"
         android:name="com.example.myshoppal.ui.fragments.ProductsFragment"
-        android:label="@string/title_favorites"
+        android:label="@string/title_products"
         tools:layout="@layout/fragment_products" />
 </navigation>

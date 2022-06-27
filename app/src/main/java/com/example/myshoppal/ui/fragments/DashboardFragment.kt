@@ -29,10 +29,8 @@ class DashboardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateView(
@@ -46,6 +44,8 @@ class DashboardFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textDashboard
+
+
 
         textView.text = "This is dashboard Fragment"
 

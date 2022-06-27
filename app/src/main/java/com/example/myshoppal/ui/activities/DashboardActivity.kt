@@ -1,6 +1,7 @@
 package com.example.myshoppal.ui.activities
 
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -24,11 +25,10 @@ class DashboardActivity : BaseActivity() {
 
 
         supportActionBar!!.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.splashform
-            )
+            resources.getDrawable(R.color.actionbar)
         )
+
+
 
 
         binding = ActivityDashboardBinding.inflate(layoutInflater)
@@ -42,7 +42,7 @@ class DashboardActivity : BaseActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_dashboard, R.id.navigation_orders, R.id.navigation_favorites
+                R.id.navigation_dashboard, R.id.navigation_orders, R.id.navigation_products
             )
         )
 

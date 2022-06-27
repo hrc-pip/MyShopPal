@@ -54,7 +54,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             et_mobile_number.setText(mUserDetails.mobile.toString())
         }
 
-        GlideLoader(this@UserProfileActivity).loadUserPicture(mUserDetails, iv_user_photo)
+        GlideLoader(this@UserProfileActivity).loadUserPicture(mUserDetails.image, iv_user_photo)
 
         et_first_name.setText(mUserDetails.firstName)
 

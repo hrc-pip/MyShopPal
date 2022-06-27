@@ -1,5 +1,6 @@
 package com.example.myshoppal.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
@@ -152,9 +153,7 @@ class RegisterActivity : BaseActivity() {
                             FirestoreClass().registerUser(this@RegisterActivity, user)
 
                             /*FirebaseAuth.getInstance().signOut();
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()*/
+                            */
 
 
                         } else {
@@ -177,6 +176,10 @@ class RegisterActivity : BaseActivity() {
             resources.getString(R.string.register_success),
             Toast.LENGTH_SHORT
         ).show()
+        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+
     }
 
 }

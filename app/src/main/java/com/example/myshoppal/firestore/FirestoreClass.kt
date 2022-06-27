@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.myshoppal.models.Product
 import com.example.myshoppal.models.User
 import com.example.myshoppal.ui.activities.*
+import com.example.myshoppal.ui.fragments.DashboardFragment
 import com.example.myshoppal.ui.fragments.ProductsFragment
 import com.example.myshoppal.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -266,4 +267,56 @@ class FirestoreClass {
                 Log.e("Get Product List", "Error while getting product list.", e)
             }
     }
+
+    fun deleteProduct(fragment: ProductsFragment, productId: String){
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(productId)
+            .delete()
+            .addOnSuccessListener {
+                fragment.productDeleteSuccess()
+            }
+            .addOnFailureListener { e ->
+
+                fragment.hideProgressDialog()
+
+                Log.e(
+                    fragment.requireActivity().javaClass.simpleName,
+                    "Error while deleting the product.",
+                    e
+                )
+            }
+    }
+
+
+    fun getDashboardItemsList(fragment: DashboardFragment) {
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.PRODUCTS)
+            .whereNotEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+
+                // Here created a new instance for Products ArrayList.
+                val productsList: ArrayList<Product> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val product = i.toObject(Product::class.java)!!
+                    product.product_id = i.id
+                    productsList.add(product)
+                }
+
+                // Pass the success result to the base fragment.
+                fragment.successDashboardItemsList(productsList)
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error which getting the dashboard items list.
+                fragment.hideProgressDialog()
+                Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
+            }
+    }
+
 }

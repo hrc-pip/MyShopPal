@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.net.toUri
 import com.example.myshoppal.R
 import com.example.myshoppal.firestore.FirestoreClass
@@ -67,9 +68,12 @@ class SettingsActivity : BaseActivity(), View.OnClickListener{
         if (user.gender != null) {
             tv_gender.text = user.gender
         }
-        if (user.mobile != null) {
+        if (user.mobile.toString() != "0") {
             tv_mobile_number.text = "${user.mobile}"
         }
+
+
+
     }
 
     override fun onResume() {

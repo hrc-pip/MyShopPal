@@ -19,6 +19,7 @@
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/ic_vector_orders.xml" value="0.2703125" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/ic_vector_products.xml" value="0.2703125" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/ic_vector_settings.xml" value="0.2703125" />
+        <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/item_dashboard_background.xml" value="0.2703125" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/item_grey_border_background.xml" value="0.2703125" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/rv_item_image_background.xml" value="0.2703125" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/drawable/user_image_background.xml" value="0.2703125" />
@@ -38,6 +39,7 @@
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/fragment_notifications.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/fragment_orders.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/fragment_products.xml" value="0.264" />
+        <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/item_dashboard_layout.xml" value="0.4" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/layout/item_list_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/menu/add_product_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/henri/AndroidStudioProjects/MyShopPal/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />

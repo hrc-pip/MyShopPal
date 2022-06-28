@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PCDIGA</string>
+    <string name="app_name">PVO</string>
     <string name="content_description">image</string>
     <string name="title_login">LOGIN</string>
     <string name="et_hint_email_id">Email ID</string>
@@ -97,5 +97,12 @@
     <string name="delete_dialog_message">Are you sure you want to delete the product?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="title_product_details">PRODUCT DETAILS</string>
+    <string name="lbl_product_description">Product Description</string>
+    <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
+    <string name="btn_lbl_edit_my_product">Save Changes</string>
+    <string name="msg_product_update_success">Your product was successfully updated</string>
+    <string name="title_my_product_details">MY PRODUCT DETAILS</string>
 
 </resources>

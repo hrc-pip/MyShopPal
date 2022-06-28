@@ -183,6 +183,9 @@ class FirestoreClass {
                             is AddProductActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
+                            is MyProductDetailsActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }
                         }
 
                     }
@@ -194,6 +197,9 @@ class FirestoreClass {
                         activity.hideProgressDialog()
                     }
                     is AddProductActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is MyProductDetailsActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
@@ -228,6 +234,38 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun updateProductDetails(activity: Activity,productId: String, productHashMap: HashMap<String, Any>) {
+
+        mFireStore.collection((Constants.PRODUCTS))
+            .document(productId)
+            .update(productHashMap)
+            .addOnSuccessListener {
+                when (activity) {
+                    is MyProductDetailsActivity -> {
+                        // Hide the progress dialog is there is any error. And print the error in log.
+                        activity.productDetailUpdateSuccess()
+                    }
+                }
+
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is MyProductDetailsActivity -> {
+                        // Hide the progress dialog is there is any error. And print the error in log.
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updating the product details",
+                    e
+                )
+            }
+
+    }
+
 
     fun getProductsList(fragment: Fragment) {
         // The collection name for PRODUCTS
@@ -319,4 +357,43 @@ class FirestoreClass {
             }
     }
 
+    fun getProductDetails(activity: Activity, productId: String) {
+
+        // The collection name for PRODUCTS
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(productId)
+            .get() // Will get the document snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the product details in the form of document.
+                Log.e(activity.javaClass.simpleName, document.toString())
+
+                // Convert the snapshot to the object of Product data model class.
+                val product = document.toObject(Product::class.java)!!
+                when (activity) {
+                    is MyProductDetailsActivity -> {
+                        activity.productDetailsSuccess(product)
+                    }
+                    is ProductDetailsActivity -> {
+                        activity.productDetailsSuccess(product)
+                    }
+                }
+
+            }
+            .addOnFailureListener { e ->
+
+                // Hide the progress dialog if there is an error.
+                when (activity) {
+                    is MyProductDetailsActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is ProductDetailsActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+
+
+                Log.e(activity.javaClass.simpleName, "Error while getting the product details.", e)
+            }
+    }
 }

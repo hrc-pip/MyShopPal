@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyShopPal">
         <activity
+            android:name=".ui.activities.ProductDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyShopPal.NoActionBar"/>
+        <activity
+            android:name=".ui.activities.MyProductDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyShopPal.NoActionBar" />
+        <activity
             android:name=".ui.activities.AddProductActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -24,8 +34,7 @@
         <activity
             android:name=".ui.activities.DashboardActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            />
+            android:label="@string/app_name" />
         <activity
             android:name=".ui.activities.UserProfileActivity"
             android:exported="true"

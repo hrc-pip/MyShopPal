@@ -217,7 +217,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_last_name), true)
                 false
             }
-            TextUtils.isEmpty(et_mobile_number.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(et_mobile_number.text.toString().trim { it <= ' ' }) || et_mobile_number.length() <= 8 -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
                 false
             }

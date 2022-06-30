@@ -14,12 +14,15 @@
         android:id="@+id/iv_dashboard_item_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_dashboard_image_height"
-        android:layout_margin="@dimen/item_dashboard_image_margin"
+        android:layout_marginStart="@dimen/item_dashboard_image_margin"
+        android:layout_marginTop="@dimen/item_dashboard_image_margin"
+        android:layout_marginEnd="@dimen/item_dashboard_image_margin"
+        android:layout_marginBottom="@dimen/item_dashboard_image_margin"
         android:background="@color/colorImageViewBackground"
         android:contentDescription="@string/content_description"
         android:minHeight="@dimen/item_dashboard_image_height"
         android:scaleType="fitXY"
-        android:src="@drawable/splashform" />
+        android:src="@drawable/auth_screens_background" />
 
     <View
         android:id="@+id/view_divider"

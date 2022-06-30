@@ -15,10 +15,7 @@ import com.example.myshoppal.databinding.FragmentDashboardBinding
 import com.example.myshoppal.firestore.FirestoreClass
 import com.example.myshoppal.models.Product
 import com.example.myshoppal.models.User
-import com.example.myshoppal.ui.activities.DashboardActivity
-import com.example.myshoppal.ui.activities.ProductDetailsActivity
-import com.example.myshoppal.ui.activities.SettingsActivity
-import com.example.myshoppal.ui.activities.UserProfileActivity
+import com.example.myshoppal.ui.activities.*
 import com.example.myshoppal.ui.adapters.DashboardItemsListAdapter
 import com.example.myshoppal.utils.Constants
 import com.google.android.material.internal.ContextUtils
@@ -77,6 +74,12 @@ class DashboardFragment : BaseFragment() {
             R.id.action_settings -> {
 
                 startActivity(Intent(activity, SettingsActivity::class.java))
+
+                return true
+            }
+
+            R.id.action_cart -> {
+                startActivity(Intent(activity, CartListActivity::class.java))
 
                 return true
             }

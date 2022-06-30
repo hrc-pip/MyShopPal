@@ -10,7 +10,7 @@
         android:id="@+id/toolbar_user_profile_activity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/splashform"
+        android:background="@drawable/auth_screens_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -209,16 +209,16 @@
             </RadioGroup>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_submit"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/splashform"
+                android:background="@drawable/button_background"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingTop="@dimen/btn_padding"

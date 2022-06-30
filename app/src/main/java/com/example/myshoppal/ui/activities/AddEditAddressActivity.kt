@@ -146,7 +146,7 @@ class AddEditAddressActivity : BaseActivity() {
             message,
             Toast.LENGTH_SHORT
         ).show()
-
+        setResult(RESULT_OK)
         finish()
     }
 

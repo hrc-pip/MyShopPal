@@ -1,5 +1,6 @@
 package com.example.myshoppal.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.example.myshoppal.firestore.FirestoreClass
 import com.example.myshoppal.models.CartItem
 import com.example.myshoppal.models.Product
 import com.example.myshoppal.ui.adapters.CartItemsListAdapter
+import com.example.myshoppal.utils.Constants
 import kotlinx.android.synthetic.main.activity_cart_list.*
 
 
@@ -22,6 +24,13 @@ class CartListActivity : BaseActivity() {
         setContentView(R.layout.activity_cart_list)
 
         setupActionBar()
+
+
+        btn_checkout.setOnClickListener{
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
@@ -81,7 +90,7 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems )
+            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems, true )
             rv_cart_items_list.adapter = cartListAdapter
 
             var subTotal: Double = 0.0

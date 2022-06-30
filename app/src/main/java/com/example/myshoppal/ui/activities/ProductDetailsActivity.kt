@@ -20,7 +20,7 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
     // A global variable for product id.
     private var mProductId: String = ""
     private lateinit var mProductDetails: Product
-
+    private var mProductOwnerId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
@@ -31,6 +31,10 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
             mProductId =
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
+        }
+
+        if(intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
+            mProductOwnerId = intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
         }
 
          setupActionBar()
@@ -113,6 +117,7 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
     private fun addToCart(){
         val cartItem = CartItem(
             FirestoreClass().getCurrentUserID(),
+            mProductOwnerId,
             mProductId,
             mProductDetails.title,
             mProductDetails.price,

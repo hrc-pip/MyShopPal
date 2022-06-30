@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myshoppal.R
 import com.example.myshoppal.models.Address
 import com.example.myshoppal.ui.activities.AddEditAddressActivity
+import com.example.myshoppal.ui.activities.CheckoutActivity
 import com.example.myshoppal.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
 open class AddressListAdapter(
     private val context: Context,
     private var list: ArrayList<Address>,
-    //private val selectAddress: Boolean
+    private val selectAddress: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -42,15 +43,15 @@ open class AddressListAdapter(
             holder.itemView.tv_address_mobile_number.text = model.mobileNumber
 
 
-            /*if (selectAddress) {
+            if (selectAddress) {
                 holder.itemView.setOnClickListener {
-                    Toast.makeText(
-                        context,
-                        "Selected address : ${model.address}, ${model.zipCode}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    val intent = Intent(context, CheckoutActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_SELECTED_ADDRESS, model)
+                    context.startActivity(intent)
+
                 }
-            }*/
+            }
         }
     }
 
@@ -64,7 +65,7 @@ open class AddressListAdapter(
         val intent = Intent(context, AddEditAddressActivity::class.java)
         intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
 
-       // activity.startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
+       activity.startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
 
         notifyItemChanged(position)
     }

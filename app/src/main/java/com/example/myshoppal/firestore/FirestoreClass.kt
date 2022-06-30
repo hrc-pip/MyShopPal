@@ -7,12 +7,10 @@ import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.myshoppal.models.Address
-import com.example.myshoppal.models.CartItem
-import com.example.myshoppal.models.Product
-import com.example.myshoppal.models.User
+import com.example.myshoppal.models.*
 import com.example.myshoppal.ui.activities.*
 import com.example.myshoppal.ui.fragments.DashboardFragment
+import com.example.myshoppal.ui.fragments.OrdersFragment
 import com.example.myshoppal.ui.fragments.ProductsFragment
 import com.example.myshoppal.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -359,7 +357,7 @@ class FirestoreClass {
             }
     }
 
-    fun getAllProductsList(activity: CartListActivity) {
+    fun getAllProductsList(activity: Activity) {
         mFireStore.collection(Constants.PRODUCTS)
             .get()
             .addOnSuccessListener { document ->
@@ -371,11 +369,24 @@ class FirestoreClass {
                     productsList.add(product)
                 }
 
-                activity.successProductsListFromFirestore(productsList)
+                when(activity){
+                    is CartListActivity -> {
+                        activity.successProductsListFromFirestore(productsList)
+                    }
+                    is CheckoutActivity -> {
+                        activity.successProductsListFromFirestore(productsList)
+                    }
+                }
             }
             .addOnFailureListener { e->
-                activity.hideProgressDialog()
-
+                when(activity){
+                    is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is CheckoutActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
                 Log.e(activity.javaClass.simpleName, "Error while getting all the products details.", e)
             }
     }
@@ -462,11 +473,17 @@ class FirestoreClass {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
+                    is CheckoutActivity -> {
+                        activity.successCartItemsList(list)
+                    }
                 }
             }
             .addOnFailureListener { e ->
                 when(activity) {
                     is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is CheckoutActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
@@ -603,6 +620,115 @@ class FirestoreClass {
                 e
                 )
 
+            }
+    }
+
+    fun placeOrder(activity: CheckoutActivity, order: Order){
+        mFireStore.collection(Constants.ORDERS)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+
+                activity.orderPlacedSuccess()
+
+            }
+            .addOnFailureListener { e->
+
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while creating an order",
+                    e
+                )
+            }
+    }
+
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<CartItem>, order: Order) {
+        val writeBatch = mFireStore.batch()
+
+        for (cartItem in cartList) {
+
+            val soldProduct = SoldProduct(
+                cartItem.product_owner_id,
+                cartItem.title,
+                cartItem.price,
+                cartItem.cart_quantity,
+                cartItem.image,
+                order.title,
+                order.order_datetime,
+                order.sub_total_amount,
+                order.shipping_charge,
+                order.total_amount,
+                order.address
+            )
+
+            val documentReference = mFireStore.collection(Constants.SOLD_PRODUCTS)
+                .document(cartItem.product_id)
+
+            writeBatch.set(documentReference, soldProduct)
+        }
+
+        for (cart in cartList) {
+
+            val productHashMap = HashMap<String, Any>()
+
+            productHashMap[Constants.STOCK_QUANTITY] =
+                (cart.stock_quantity.toInt() - cart.cart_quantity.toInt()).toString()
+
+            val documentReference = mFireStore.collection(Constants.PRODUCTS)
+                .document(cart.product_id)
+
+            writeBatch.update(documentReference, productHashMap)
+        }
+
+        for(cartItem in cartList) {
+            val documentReference = mFireStore.collection(Constants.CART_ITEMS)
+                .document(cartItem.id)
+
+            writeBatch.delete(documentReference)
+        }
+
+        writeBatch.commit()
+            .addOnSuccessListener {
+
+                activity.allDetailsUpdated()
+
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updating all the details after ordering something",
+                    e
+                )
+            }
+    }
+
+    fun getMyOrdersList(fragment: OrdersFragment) {
+        mFireStore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents) {
+
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+
+                fragment.populateOrdersListInUI(list)
+
+            }
+            .addOnFailureListener { e->
+                fragment.hideProgressDialog()
+                Log.e(
+                    fragment.javaClass.simpleName,
+                    "Error while updating all the details after ordering something",
+                    e
+                )
             }
     }
 }

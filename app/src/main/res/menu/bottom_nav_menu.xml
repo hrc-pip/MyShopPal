@@ -19,6 +19,10 @@
         android:title="@string/title_orders"
         android:iconTint="@color/design_default_color_on_secondary"/>
 
-
+    <item
+        android:id="@+id/navigation_sold_products"
+        android:icon="@drawable/ic_vector_sold_products"
+        android:title="@string/title_sold_products"
+        android:iconTint="@color/design_default_color_on_secondary"/>
 
 </menu>

@@ -26,4 +26,11 @@
         android:name="com.example.myshoppal.ui.fragments.ProductsFragment"
         android:label="@string/title_products"
         tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/navigation_sold_products"
+        android:name="com.example.myshoppal.ui.fragments.SoldProductsFragment"
+        android:label="@string/title_sold_products"
+        tools:layout="@layout/fragment_sold_products" />
+
 </navigation>

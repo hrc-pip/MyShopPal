@@ -173,7 +173,7 @@
     <string name="order_status_delivered">Delivered</string>
 
     <string name="title_sold_products">Sold Products</string>
-    <string name="no_products_sold_out_yet">No products sold out yet!</string>
+    <string name="no_products_sold_yet">No products sold yet!</string>
 
     <string name="title_sold_product_details">SOLD PRODUCT DETAILS</string>
 

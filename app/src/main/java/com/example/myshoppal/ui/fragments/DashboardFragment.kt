@@ -111,17 +111,7 @@ class DashboardFragment : BaseFragment() {
             val adapter = DashboardItemsListAdapter(requireActivity(), dashboardItemsList)
             rv_dashboard_items.adapter = adapter
 
-           /* adapter.setOnClickListener(object: DashboardItemsListAdapter.OnClickListener{
-                override fun onClick(position: Int, product: Product) {
-                    super.onClick(position, product)
 
-
-
-                    val intent = Intent(context, ProductDetailsActivity::class.java)
-                    intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
-                    startActivity(intent)
-                }
-            })*/
 
         } else {
 

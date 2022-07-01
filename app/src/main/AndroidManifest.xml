@@ -12,10 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyShopPal">
         <activity
+            android:name=".ui.activities.SoldProductDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyShopPal.NoActionBar"/>
+        <activity
             android:name=".ui.activities.MyOrderDetailsActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MyShopPal.NoActionBar"  />
+            android:theme="@style/Theme.MyShopPal.NoActionBar" />
         <activity
             android:name=".ui.activities.CheckoutActivity"
             android:exported="true"

@@ -12,6 +12,7 @@ import com.example.myshoppal.ui.activities.*
 import com.example.myshoppal.ui.fragments.DashboardFragment
 import com.example.myshoppal.ui.fragments.OrdersFragment
 import com.example.myshoppal.ui.fragments.ProductsFragment
+import com.example.myshoppal.ui.fragments.SoldProductsFragment
 import com.example.myshoppal.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -332,9 +333,6 @@ class FirestoreClass {
             .whereNotEqualTo(Constants.USER_ID, getCurrentUserID())
             .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
-
-                // Here we get the list of boards in the form of documents.
-                Log.e(fragment.javaClass.simpleName, document.documents.toString())
 
                 // Here created a new instance for Products ArrayList.
                 val productsList: ArrayList<Product> = ArrayList()
@@ -727,6 +725,39 @@ class FirestoreClass {
                 Log.e(
                     fragment.javaClass.simpleName,
                     "Error while updating all the details after ordering something",
+                    e
+                )
+            }
+    }
+
+    fun getSoldProductsList(fragment: SoldProductsFragment) {
+        mFireStore.collection(Constants.SOLD_PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+
+
+                val list: ArrayList<SoldProduct> = ArrayList()
+
+
+                for (i in document.documents) {
+
+                    val soldProduct = i.toObject(SoldProduct::class.java)!!
+                    soldProduct.id = i.id
+
+                    list.add(soldProduct)
+                }
+
+                fragment.successSoldProductsList(list)
+            }
+            .addOnFailureListener { e ->
+               fragment.hideProgressDialog()
+
+                Log.e(
+                    fragment.javaClass.simpleName,
+                    "Error while getting the list of sold products.",
                     e
                 )
             }

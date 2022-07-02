@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/content_description"
                 android:scaleType="fitXY"
-                android:src="@drawable/auth_screens_background" />
+                android:src="@drawable/transferir" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_settings_activity"
@@ -172,7 +172,7 @@
             android:layout_marginTop="@dimen/settings_button_marginTopBottom"
             android:layout_marginEnd="@dimen/settings_button_marginStartEnd"
             android:layout_marginBottom="@dimen/settings_button_marginTopBottom"
-            android:background="@drawable/button_background"
+            android:background="@drawable/transferir"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingTop="@dimen/btn_padding"

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@drawable/auth_screens_background">
+        android:background="@drawable/transferir">
 
         <TextView
             android:id="@+id/tv_title"
@@ -286,7 +286,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/transferir"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingTop="@dimen/btn_padding"

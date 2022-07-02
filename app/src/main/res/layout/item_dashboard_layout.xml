@@ -22,7 +22,7 @@
         android:contentDescription="@string/content_description"
         android:minHeight="@dimen/item_dashboard_image_height"
         android:scaleType="fitXY"
-        android:src="@drawable/auth_screens_background" />
+        android:src="@drawable/transferir" />
 
     <View
         android:id="@+id/view_divider"

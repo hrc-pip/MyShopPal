@@ -25,7 +25,7 @@ class DashboardActivity : BaseActivity() {
 
 
         supportActionBar!!.setBackgroundDrawable(
-            resources.getDrawable(R.drawable.auth_screens_background)
+            resources.getDrawable(R.drawable.transferir)
         )
 
 

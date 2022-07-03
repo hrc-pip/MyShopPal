@@ -11,7 +11,7 @@ import com.example.myshoppal.R
 abstract class SwipeToDeleteCallback(context: Context)
     : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_vector_delete)
+    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_vector_delete_white)
     private val intrinsicWidth = deleteIcon!!.intrinsicWidth
     private val intrinsicHeight = deleteIcon!!.intrinsicHeight
     private val background = ColorDrawable()

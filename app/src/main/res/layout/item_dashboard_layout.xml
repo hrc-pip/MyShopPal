@@ -34,7 +34,7 @@
     <LinearLayout
         android:id="@+id/ll_dashboard_item_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/view_divider"
         android:background="@color/dashboard_item_details_bg"
         android:orientation="vertical"

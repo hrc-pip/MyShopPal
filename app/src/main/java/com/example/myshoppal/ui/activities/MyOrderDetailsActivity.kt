@@ -126,9 +126,9 @@ class MyOrderDetailsActivity : AppCompatActivity() {
         }
         tv_my_order_details_mobile_number.text = orderDetails.address.mobileNumber
 
-        tv_order_details_sub_total.text = orderDetails.sub_total_amount
-        tv_order_details_shipping_charge.text = orderDetails.shipping_charge
-        tv_order_details_total_amount.text = orderDetails.total_amount
+        tv_order_details_sub_total.text = "${orderDetails.sub_total_amount}€"
+        tv_order_details_shipping_charge.text = "${orderDetails.shipping_charge}€"
+        tv_order_details_total_amount.text = "${orderDetails.total_amount}€"
     }
 
 }

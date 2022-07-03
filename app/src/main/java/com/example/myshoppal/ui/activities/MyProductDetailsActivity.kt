@@ -38,6 +38,9 @@ class MyProductDetailsActivity : BaseActivity(), View.OnClickListener {
         }
 
         getProductDetails()
+
+        iv_my_product_detail_image.setOnClickListener(this)
+        btn_edit_my_product.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -94,7 +97,7 @@ class MyProductDetailsActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if ( v != null ) {
             when (v.id) {
-                R.id.iv_product_detail_image -> {
+                R.id.iv_my_product_detail_image -> {
                     if (ContextCompat.checkSelfPermission(
                             this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
